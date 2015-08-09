@@ -1,0 +1,9 @@
+<h1>Grammar Questions!</h1>
+
+<div>
+  <% @questions.each do |question| %>
+    <h3><%= question.question %></h3>
+    <p><%= question.description %></p>
+    <p><%= button_to "Delete", question, method: :delete %></p>
+  <% end %>
+</div>
