@@ -39,3 +39,18 @@ rails g migration RemoveDescriptionFromAnswers description:text
 <!-- Setting up routes and controller actions -->
 
 <!-- Implementing Auth -->
+
+<!-- Creating a User model -->
+rails g model User email password_digest
+
+<!-- Migrate the new model to the database -->
+rake db:migrate
+
+<!-- Generating a Users controller -->
+rails g controller users first_name last_name email password
+
+<!-- adding a users foreign key to questions to associate the two models -->
+rails generate migration AddUserRefToQuestions user:references
+
+<!-- migrating the update -->
+rake db:migrate

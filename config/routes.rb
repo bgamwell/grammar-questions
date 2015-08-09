@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'questions#index'
+  get "/signup", to: "users#new"
 
   resources :questions
 
   resources :answers
+
+  resources :users, only: [:new, :create, :show]
 
 end
