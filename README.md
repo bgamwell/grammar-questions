@@ -54,3 +54,8 @@ rails generate migration AddUserRefToQuestions user:references
 
 <!-- migrating the update -->
 rake db:migrate
+
+<!-- Implementing login -->
+
+<!-- Generating a sessions controller -->
+rails g controller session new create destroy

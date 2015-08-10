@@ -5,19 +5,24 @@ class QuestionsController < ApplicationController
     render :index
   end
 
+  #creating a new questions that belongs_to current_user
   def new
     @question = Question.new
     render :new
   end
 
   def create
-    # question_params = params.require(:question).permit(:question, :description)
-    @question = Question.new(question_params)
-    if @question.save
-      # At this stage, I can never get the page to redirect to index when a question is posted, and I have no idea why. I can only render the "show" page. Is this something that's built into Rails?
-      redirect_to "/questions/#{@question.id}"
+    if current_user
+      @question = current_user.questions.new(question_params)
+      if @question.save
+        # At this stage, I can never get the page to redirect to index when a question is posted, and I have no idea why. I can only render the "show" page. Is this something that's built into Rails?
+        redirect_to question_path(@question)
+      else
+        flash[:error] = "Oops, something went wrong! Try posting again."
+      end
     else
-      flash[:error] = "Oops, something went wrong! Try posting again."
+      redirect_to login_path
+      flash[:error] = "Please log in to post something!"
     end
   end
 

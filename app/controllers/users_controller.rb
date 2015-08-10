@@ -1,17 +1,27 @@
 class UsersController < ApplicationController
 
+  before_filter :authorize, only: [:show]
+
   def new
-    @user = User.new
-    render :new
+    if current_user
+      redirect_to profile_path
+    else
+      @user = User.new
+      render :new
+    end
   end
 
   def create
-    user = User.create(user_params)
-    session[:user_id] = user.id
+    if current_user
+      redirect_to profile_path
+    else
+      user = User.create(user_params)
+      session[:user_id] = user.id
 
-    # redirect_to "/users/#{user.id}"
-    # the line above can be refactored to use rails route helpers:
-    redirect_to user_path(user)
+      # redirect_to "/users/#{user.id}"
+      # the line above can be refactored to use rails route helpers:
+      redirect_to user_path(user)
+    end
   end
 
   def show

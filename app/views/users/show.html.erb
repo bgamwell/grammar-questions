@@ -1,2 +1,8 @@
 <h1>Current User</h1>
 <p>Welcome, <%= @user.email %>!</p>
+
+<%= link_to "Logout", logout_path %>
+
+<h2>Here are all of the questions you've asked!</h2>
+
+<%= @user.questions %>
