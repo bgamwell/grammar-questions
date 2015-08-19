@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_filter :authorize, except: [:index, :show] #requires users be logged in to perform ANY action other than viewing the index or show pages; "authorize" is a method defined in the ApplicationController
 
   def index
     @questions = Question.all
